@@ -52,15 +52,24 @@ class MainActivity : AppCompatActivity() {
                     parameters.append("id", recipeId.toString())
                 }
                 try {
+                    /**
+                     * this doesn't give the expected result...throws an exception
+                     */
                     var recipe = ktorClientFactory.get {
                         accept(ContentType.Application.Json)
                         url(url.build())
                         header("Authorization", TOKEN)
                         header("Content-Type", "application/json; charset=UTF-8")
-                    }
-                    val recipeTemp: RecipeTemp =
-                        Gson().fromJson(recipe.bodyAsText(), RecipeTemp::class.java)
-                    Log.d("RESPONSE", recipeTemp.pk.toString())
+                    }.body<RecipeTemp>()
+
+                    /**
+                     * Of course this works  but the result above is what
+                     * we want
+                     */
+                   /* val recipeTemp: RecipeTemp =
+                        Gson().fromJson(recipe.toString(), RecipeTemp::class.java)*/
+
+                   // Log.d("RESPONSE", recipeTemp.pk.toString())
                 } catch (exception: Exception) {
                     Log.e("Error", exception.message.toString())
                 }
