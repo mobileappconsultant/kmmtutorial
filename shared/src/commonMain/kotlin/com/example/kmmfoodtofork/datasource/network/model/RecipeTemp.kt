@@ -1,10 +1,10 @@
 package com.example.kmmfoodtofork.datasource.network.model
 
 
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class RecipeTemp(
-val pk: Int,
-
+    @SerialName("pk") val pk: Int,
 )

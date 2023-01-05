@@ -58,6 +58,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.5.1")
     implementation(Compose.hilt_navigation)
 
+    implementation ("com.google.code.gson:gson:2.9.0")
     implementation(Google.material)
     implementation(Hilt.hiltAndroid)
     implementation(Hilt.hiltNavigation)

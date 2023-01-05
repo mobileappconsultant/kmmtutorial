@@ -10,6 +10,7 @@ import com.example.kmmfoodtofork.datasourc.network.KtorClientFactory
 import com.example.kmmfoodtofork.datasourc.network.toRecipe
 import com.example.kmmfoodtofork.datasource.network.model.RecipeDto
 import com.example.kmmfoodtofork.datasource.network.model.RecipeTemp
+import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
 import io.ktor.client.call.body
 import io.ktor.client.request.accept
@@ -24,9 +25,12 @@ import io.ktor.http.URLBuilder
 import io.ktor.http.URLProtocol
 import io.ktor.http.contentType
 import io.ktor.http.encodedPath
+import io.ktor.util.Identity.decode
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.decodeFromJsonElement
 
 const val BASE_URL = "https://food2fork.ca/api/recipe/"
 const val TOKEN = "Token 9c8b06d329136da358c2d00e76946b0111ce2c48"
@@ -53,9 +57,10 @@ class MainActivity : AppCompatActivity() {
                         url(url.build())
                         header("Authorization", TOKEN)
                         header("Content-Type", "application/json; charset=UTF-8")
-
-                    }.body<RecipeTemp>()
-                    Log.d("RESPONSE", recipe.toString())
+                    }
+                    val recipeTemp: RecipeTemp =
+                        Gson().fromJson(recipe.bodyAsText(), RecipeTemp::class.java)
+                    Log.d("RESPONSE", recipeTemp.pk.toString())
                 } catch (exception: Exception) {
                     Log.e("Error", exception.message.toString())
                 }
