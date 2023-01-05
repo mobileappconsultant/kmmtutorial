@@ -4,12 +4,10 @@ import com.example.kmmfoodtofork.datasource.network.model.RecipeDto
 import com.example.kmmfoodtofork.domain.model.Recipe
 import com.example.kmmfoodtofork.domain.model.util.DatetimeUtil
 import io.ktor.client.HttpClient
-import io.ktor.client.HttpClientConfig
 
 expect class KtorClientFactory {
     fun build(): HttpClient
 }
-
 
 fun RecipeDto.toRecipe(): Recipe {
     val datetimeUtil = DatetimeUtil()

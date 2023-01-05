@@ -17,13 +17,12 @@ kotlin {
     }
 
     sourceSets {
-       // val ktorVersion = "2.2.2"
-        val ktorVersion = "1.5.4"
+        val ktorVersion = "2.2.2"
         val kotlinserialzation = "1.4.1"
         val commonMain by getting {
             dependencies {
                 implementation(Kotlinx.datetime)
-               // implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
+                implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
                 implementation("io.ktor:ktor-client-logging:$ktorVersion")
                 implementation("io.ktor:ktor-client-cio:$ktorVersion")
                 implementation("io.ktor:ktor-client-core:$ktorVersion")
@@ -56,7 +55,7 @@ kotlin {
             iosArm64Main.dependsOn(this)
             iosSimulatorArm64Main.dependsOn(this)
             dependencies {
-                implementation("io.ktor:ktor-client-ios:$ktorVersion")
+                implementation("io.ktor:ktor-client-darwin:$ktorVersion")
             }
         }
         val iosX64Test by getting
