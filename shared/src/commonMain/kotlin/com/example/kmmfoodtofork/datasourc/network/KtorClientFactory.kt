@@ -5,6 +5,7 @@ import com.example.kmmfoodtofork.domain.model.Recipe
 import com.example.kmmfoodtofork.domain.model.util.DatetimeUtil
 import io.ktor.client.HttpClient
 
+
 expect class KtorClientFactory {
     fun build(): HttpClient
 }
@@ -14,17 +15,13 @@ fun RecipeDto.toRecipe(): Recipe {
     return Recipe(
         id = pk,
         title = title,
-        publisher = publisher,
-        image = featured_image,
+        featuredImage = featuredImage,
         rating = rating,
-        sourceUrl = source_url,
-        description = description,
-     /*   cookingInstructions = cooking_instructions,*/
+        publisher = publisher,
+        sourceUrl = sourceUrl,
         ingredients = ingredients,
-        date_added = datetimeUtil.toLocalDate(long_date_added.toDouble()),
-        date_updated = datetimeUtil.toLocalDate(long_date_updated.toDouble()),
-        long_date_updated = long_date_updated,
-        long_date_added = long_date_added
+        dateAdded = datetimeUtil.toLocalDate(longDateAdded.toDouble()),
+        dateUpdated = datetimeUtil.toLocalDate(longDateUpdated.toDouble()),
     )
 }
 
