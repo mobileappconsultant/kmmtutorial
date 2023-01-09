@@ -1,4 +1,4 @@
-package com.example.kmmfoodtofork.android.presentation.navigation.recipe_detail
+package com.example.kmmfoodtofork.android.presentation.navigation.recipe_list
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row

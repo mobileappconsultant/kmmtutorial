@@ -1,8 +1,6 @@
 package com.example.kmmfoodtofork.android.presentation.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.LocalContext
-import androidx.hilt.navigation.HiltViewModelFactory
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -11,7 +9,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.kmmfoodtofork.android.presentation.navigation.recipe_detail.RecipeDetailScreen
 import com.example.kmmfoodtofork.android.presentation.navigation.recipe_detail.RecipeDetailViewModel
-import com.example.kmmfoodtofork.android.presentation.navigation.recipe_detail.RecipeList
+import com.example.kmmfoodtofork.android.presentation.navigation.recipe_list.RecipeList
 import com.example.kmmfoodtofork.android.presentation.navigation.recipe_list.RecipeListViewModel
 
 
@@ -35,7 +33,7 @@ fun Navigation() {
 
         ) { _ ->
             val recipeDetailViewModel = hiltViewModel<RecipeDetailViewModel>()
-            RecipeDetailScreen(recipeId = recipeDetailViewModel.recipeId.value)
+            recipeDetailViewModel.recipe.value?.let { RecipeDetailScreen(recipe = it) }
 
         }
     }

@@ -1,6 +1,7 @@
 plugins {
-    kotlin("multiplatform")
-    id("com.android.library")
+    kotlin(KotlinPlugins.multiplatform)
+    id(Plugins.androidLibrary)
+    id(Plugins.sqlDelight)
     kotlin(KotlinPlugins.serialization) version Kotlin.version
 }
 
@@ -28,8 +29,7 @@ kotlin {
                 implementation("io.ktor:ktor-client-core:$ktorVersion")
                 implementation("io.ktor:ktor-client-serialization:$ktorVersion")
                 implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
-
-
+                implementation(SQLDelight.runtime)
             }
         }
         val commonTest by getting {
@@ -41,7 +41,7 @@ kotlin {
             dependencies {
                 implementation("io.ktor:ktor-client-okhttp:$ktorVersion")
                 implementation("io.ktor:ktor-client-serialization:$ktorVersion")
-
+                implementation(SQLDelight.androidDriver)
             }
         }
         val androidTest by getting
@@ -55,6 +55,7 @@ kotlin {
             iosSimulatorArm64Main.dependsOn(this)
             dependencies {
                 implementation("io.ktor:ktor-client-darwin:$ktorVersion")
+                implementation(SQLDelight.nativeDriver)
             }
         }
         val iosX64Test by getting
@@ -74,5 +75,14 @@ android {
     defaultConfig {
         minSdk = 23
         targetSdk = 32
+    }
+}
+
+
+
+sqldelight {
+    database("RecipeDatabase") {
+        packageName = "com.example.kmmfoodtofork.datasource.cache"
+        sourceFolders = listOf("sqldelight")
     }
 }

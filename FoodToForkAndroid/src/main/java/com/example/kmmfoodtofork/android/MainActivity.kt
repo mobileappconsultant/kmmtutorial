@@ -6,19 +6,9 @@ import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import com.example.kmmfoodtofork.android.presentation.navigation.Navigation
 import com.example.kmmfoodtofork.datasourc.network.KtorClientFactory
-import com.example.kmmfoodtofork.datasourc.network.toRecipe
-import com.example.kmmfoodtofork.datasource.network.model.RecipeDto
-import com.example.kmmfoodtofork.domain.model.Recipe
+import com.example.kmmfoodtofork.datasourc.network.RecipeServiceImpl
+import com.example.kmmfoodtofork.domain.model.util.DatetimeUtil
 import dagger.hilt.android.AndroidEntryPoint
-import io.ktor.client.call.body
-import io.ktor.client.request.accept
-import io.ktor.client.request.get
-import io.ktor.client.request.header
-import io.ktor.client.request.url
-import io.ktor.http.ContentType
-import io.ktor.http.URLBuilder
-import io.ktor.http.URLProtocol
-import io.ktor.http.encodedPath
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
@@ -29,34 +19,21 @@ const val TOKEN = "Token 9c8b06d329136da358c2d00e76946b0111ce2c48"
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     val ktorClientFactory = KtorClientFactory().build()
+
+    @OptIn(ExperimentalStdlibApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             Navigation()
-            CoroutineScope(IO).launch {
-                val recipeId = 1551
-                val url = URLBuilder().apply {
-                    host = "food2fork.ca"
-                    port = 80
-                    protocol = URLProtocol("https", 80)
-                    encodedPath = "api/recipe/get"
-                    parameters.append("id", recipeId.toString())
-                }
-                try {
-
-                    var recipe = ktorClientFactory.get {
-                        accept(ContentType.Application.Json)
-                        url(url.build())
-                        header("Authorization", TOKEN)
-                        header("Content-Type", "application/json; charset=UTF-8")
-                    }.body<RecipeDto>().toRecipe()
-
+          /*  CoroutineScope(IO).launch {
+                var recipes = RecipeServiceImpl(ktorClientFactory, BASE_URL).search(1, "Chicken")
+                recipes.forEach { recipe ->
                     Log.d("RESPONSE", recipe.id.toString())
-                } catch (exception: Exception) {
-                    Log.e("Error", exception.message.toString())
+                    Log.d("RESPONSE", recipe.title.toString())
+                    Log.d("RESPONSE", DatetimeUtil().humanizeDatetime(recipe.dateUpdated))
                 }
 
-            }
+            }*/
         }
     }
 }
