@@ -1,5 +1,6 @@
 package com.example.kmmfoodtofork.android.di
 
+import android.content.Context
 import com.example.kmmfoodtofork.android.BaseApplication
 import dagger.Module
 import dagger.Provides
@@ -14,7 +15,7 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideApplicationContext(@ApplicationContext context: ApplicationContext): BaseApplication {
-        return context as BaseApplication
+    fun provideApplicationContext(@ApplicationContext app: Context): BaseApplication {
+        return app as BaseApplication
     }
 }

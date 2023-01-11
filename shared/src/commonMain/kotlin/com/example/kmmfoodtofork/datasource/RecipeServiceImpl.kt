@@ -1,8 +1,11 @@
 package com.example.kmmfoodtofork.datasourc.network
 
+import com.example.kmmfoodtofork.datasource.cache.Recipe_Entity
+import com.example.kmmfoodtofork.datasource.cache.convertIngredientsToList
 import com.example.kmmfoodtofork.datasource.network.model.RecipeDto
 import com.example.kmmfoodtofork.datasource.network.model.RecipeSearchResponse
 import com.example.kmmfoodtofork.domain.model.Recipe
+import com.example.kmmfoodtofork.domain.model.util.DatetimeUtil
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.accept
@@ -29,14 +32,15 @@ class RecipeServiceImpl(
             parameters.append("page", page.toString())
             parameters.append("query", query)
         }
-return httpclient.use {
-         it.get {
-            accept(ContentType.Application.Json)
-            url(url.build())
-            header("Authorization", TOKEN)
-            header("Content-Type", "application/json; charset=UTF-8")
-        }.body<RecipeSearchResponse>().result.map { it.toRecipe() }
-    }}
+        return httpclient.use {
+            it.get {
+                accept(ContentType.Application.Json)
+                url(url.build())
+                header("Authorization", TOKEN)
+                header("Content-Type", "application/json; charset=UTF-8")
+            }.body<RecipeSearchResponse>().result.map { it.toRecipe() }
+        }
+    }
 
     override suspend fun getRecipe(id: Int): Recipe {
         val url = URLBuilder().apply {
@@ -54,6 +58,26 @@ return httpclient.use {
             header("Authorization", TOKEN)
             header("Content-Type", "application/json; charset=UTF-8")
         }.body<RecipeDto>().toRecipe()
+    }
+
+
+    fun Recipe_Entity.toRecipe(): Recipe {
+        val datetimeUtil = DatetimeUtil()
+        return Recipe(
+            id = id.toInt(),
+            title = title,
+            publisher = publisher,
+            featuredImage = featured_image,
+            rating = rating.toInt(),
+            sourceUrl = source_url,
+            ingredients = ingredients.convertIngredientsToList(),
+            dateAdded = datetimeUtil.toLocalDate(date_added),
+            dateUpdated = datetimeUtil.toLocalDate(date_updated),
+        )
+    }
+
+    fun List<Recipe_Entity>.toRecipeList(): List<Recipe> {
+        return map { it.toRecipe() }
     }
 
     companion object {

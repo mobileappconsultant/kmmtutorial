@@ -27,10 +27,18 @@ class RecipeCacheImpl(
         recipes.forEach { insertRecipe(it) }
     }
 
-    override fun search(query: String, page: Int): List<Recipe> {
+/*    override fun search(query: String, page: Int): List<Recipe> {
         return queries.searchRecipes(
             query = query, pageSize = RECIPE_PAGINATION_PAGE_SIZE.toLong(),
             offset = (page.minus(1).times(RECIPE_PAGINATION_PAGE_SIZE)).toLong()
+        ).executeAsList().map { it.toRecipe()!! }
+    }*/
+
+    override fun search(query: String, page: Int): List<Recipe> {
+        return queries.searchRecipes(
+            query = query,
+            pageSize = RECIPE_PAGINATION_PAGE_SIZE.toLong(),
+            offset = ((page - 1) * RECIPE_PAGINATION_PAGE_SIZE).toLong()
         ).executeAsList().map { it.toRecipe()!! }
     }
 

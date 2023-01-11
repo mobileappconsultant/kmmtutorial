@@ -42,7 +42,8 @@ dependencies {
     implementation(project(":shared"))
 
     implementation(AndroidX.appCompat)
-
+    implementation(Accompanist.coil)
+    implementation("io.coil-kt:coil-compose:2.2.2")
 
     implementation(Compose.runtime)
     implementation(Compose.runtimeLiveData)
