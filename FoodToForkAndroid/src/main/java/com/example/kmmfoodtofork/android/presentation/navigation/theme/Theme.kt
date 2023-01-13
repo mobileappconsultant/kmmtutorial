@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import com.example.kmmfoodtofork.android.presentation.components.CircularIndeterminateProgressBar
 import com.example.kmmfoodtofork.android.presentation.navigation.theme.Type.QuickSandTypography
 
 @SuppressLint("ConflictingOnColor")
@@ -47,9 +48,7 @@ fun AppTheme(
                 .background(color = Grey1)
         ) {
             content()
-            if (displayProgressBar) {
-                // TODO("Show indeterminate progress bar")
-            }
+            CircularIndeterminateProgressBar(isDisplayed = displayProgressBar, verticalBias = 0.30f)
         }
     }
 }

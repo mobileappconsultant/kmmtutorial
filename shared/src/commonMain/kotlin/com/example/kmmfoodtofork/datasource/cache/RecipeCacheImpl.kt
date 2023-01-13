@@ -38,7 +38,7 @@ class RecipeCacheImpl(
         return queries.searchRecipes(
             query = query,
             pageSize = RECIPE_PAGINATION_PAGE_SIZE.toLong(),
-            offset = ((page - 1) * RECIPE_PAGINATION_PAGE_SIZE).toLong()
+            offset = 5/*((page - 1) * RECIPE_PAGINATION_PAGE_SIZE).toLong()*/
         ).executeAsList().map { it.toRecipe()!! }
     }
 

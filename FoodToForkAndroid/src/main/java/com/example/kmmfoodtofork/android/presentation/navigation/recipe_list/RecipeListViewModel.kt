@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.kmmfoodtofork.domain.model.Recipe
 import com.example.kmmfoodtofork.interactors.recipe_list.SearchRecipe
+import com.example.kmmfoodtofork.presentation.recipe_list.RecipeListEvents
 import com.example.kmmfoodtofork.presentation.recipe_list.RecipeListState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -18,14 +19,37 @@ class RecipeListViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
     private val searchRecipe: SearchRecipe
 ) : ViewModel() {
-     val state: MutableState<RecipeListState> = mutableStateOf(RecipeListState())
+    val state: MutableState<RecipeListState> = mutableStateOf(RecipeListState())
 
     init {
+        onTriggerEvent(RecipeListEvents.LoadRecipes)
+    }
+
+     fun onTriggerEvent(events: RecipeListEvents) {
+        when (events) {
+            RecipeListEvents.LoadRecipes -> {
+                loadRecipes()
+            }
+            RecipeListEvents.NextPage -> {
+                nextPage()
+            }
+            else -> {
+                handleError("Invalid Event")
+            }
+        }
+    }
+
+    private fun handleError(errorMessage: String) {
+        //TODO handle the error
+    }
+
+    private fun nextPage() {
+        state.value = state.value.copy(page = state.value.page.plus(1))
         loadRecipes()
     }
 
     private fun loadRecipes() {
-        searchRecipe.execute(page = state.value.page, query = state.value.query)
+      searchRecipe.execute(page = state.value.page, query = state.value.query)
             .onEach { dataState ->
                 println("RecipeListVM [Loading] ${dataState.isLoading}")
                 state.value = state.value.copy(isLoading = dataState.isLoading)
@@ -35,7 +59,9 @@ class RecipeListViewModel @Inject constructor(
                 }
                 dataState.message?.let { message ->
                     println("RecipeListVM $message")
+                    handleError(message)
                 }
+
             }.launchIn(viewModelScope)
     }
 

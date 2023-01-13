@@ -13,15 +13,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.example.kmmfoodtofork.android.presentation.components.GradientDemo
 import com.example.kmmfoodtofork.android.presentation.navigation.recipe_list.components.RecipeCard
 import com.example.kmmfoodtofork.android.presentation.navigation.theme.AppTheme
+import com.example.kmmfoodtofork.presentation.recipe_list.RecipeListEvents
 import com.example.kmmfoodtofork.presentation.recipe_list.RecipeListState
 
 @OptIn(ExperimentalComposeUiApi::class, ExperimentalMaterialApi::class)
 @Composable
 fun RecipeList(
     state: RecipeListState,
-    //event: (RecipeListEvent) -> Unit
+    onTriggerEvent: (RecipeListEvents) -> Unit,
     onClickRecipeListItem: (Int) -> Unit
 ) {
 
@@ -29,7 +31,11 @@ fun RecipeList(
         com.example.kmmfoodtofork.android.presentation.navigation.recipe_list.components.RecipeList(
             loading = state.isLoading,
             recipes = state.recipes,
-            onClickRecipeListItem = onClickRecipeListItem
+            onClickRecipeListItem = onClickRecipeListItem,
+            page = state.page,
+            onTriggerNextPage = {
+                onTriggerEvent(RecipeListEvents.NextPage)
+            }
         )
     }
 }

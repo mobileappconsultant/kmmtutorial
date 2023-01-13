@@ -1,6 +1,5 @@
 package com.example.kmmfoodtofork.android.presentation.components
 
-import android.widget.Toast
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -12,7 +11,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 
-const val RECIPE_HEIGHT = 260
+const val RECIPE_IMAGE_HEIGHT = 260
 
 @Composable
 fun RecipeImage(url: String, contentDescription: String) {
@@ -59,7 +58,7 @@ fun RecipeImage(url: String, contentDescription: String) {
         AsyncImage(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(RECIPE_HEIGHT.dp),
+                .height(RECIPE_IMAGE_HEIGHT.dp),
             contentScale = ContentScale.Crop,
             model = ImageRequest.Builder(LocalContext.current)
                 .data(url)
