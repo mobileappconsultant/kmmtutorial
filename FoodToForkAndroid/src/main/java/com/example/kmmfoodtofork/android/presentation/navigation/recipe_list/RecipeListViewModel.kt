@@ -7,15 +7,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.kmmfoodtofork.domain.model.Recipe
 import com.example.kmmfoodtofork.interactors.recipe_list.SearchRecipe
+import com.example.kmmfoodtofork.presentation.recipe_list.FoodCategory
 import com.example.kmmfoodtofork.presentation.recipe_list.RecipeListEvents
 import com.example.kmmfoodtofork.presentation.recipe_list.RecipeListState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.launch
 
 @HiltViewModel
 class RecipeListViewModel @Inject constructor(
@@ -42,12 +40,21 @@ class RecipeListViewModel @Inject constructor(
             }
 
             is RecipeListEvents.OnUpdateQuery -> {
-                state.value = state.value.copy(query = events.updatedQuery)
+                state.value = state.value.copy(query = events.updatedQuery, selectedCategory = null)
+            }
+
+            is RecipeListEvents.OnCategorySelect -> {
+                onSelectCategory(events.selectedCategory)
             }
             else -> {
                 handleError("Invalid Event")
             }
         }
+    }
+
+    private fun onSelectCategory(category: FoodCategory) {
+        state.value = state.value.copy(selectedCategory = category, query = category.value)
+        newSearch()
     }
 
     private fun handleError(errorMessage: String) {

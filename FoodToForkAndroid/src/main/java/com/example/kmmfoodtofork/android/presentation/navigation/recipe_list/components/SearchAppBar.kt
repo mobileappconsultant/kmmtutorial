@@ -4,6 +4,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
@@ -17,6 +19,8 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import com.example.kmmfoodtofork.presentation.recipe_list.FoodCategory
+import com.example.kmmfoodtofork.presentation.recipe_list.FoodCategoryUtil
 
 @ExperimentalComposeUiApi
 @Composable
@@ -24,6 +28,9 @@ fun SearchAppBar(
     query: String,
     onQueryChanged: (String) -> Unit,
     onExecuteSearch: () -> Unit,
+    categories: List<FoodCategory>,
+    selectedCategory: FoodCategory?,
+    onSelectedCategoryChanged: (FoodCategory) -> Unit,
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
     Surface(
@@ -40,8 +47,7 @@ fun SearchAppBar(
                 TextField(
                     modifier = Modifier
                         .fillMaxWidth(.9f)
-                        .padding(8.dp)
-                    ,
+                        .padding(8.dp),
                     value = query,
                     onValueChange = { onQueryChanged(it) },
                     label = { Text(text = "Search") },
@@ -60,7 +66,36 @@ fun SearchAppBar(
                     colors = TextFieldDefaults.textFieldColors(backgroundColor = MaterialTheme.colors.surface),
                 )
             }
+            LazyRow(
+                modifier = Modifier
+                    .padding(start = 8.dp, bottom = 8.dp),
+            ) {
+                items(categories) {
+                    FoodCategoryChip(
+                        category = it.value,
+                        isSelected = selectedCategory == it,
+                        onSelectedCategoryChange = { foodCategory ->
+                            FoodCategoryUtil().getFoodCategoryByValue(foodCategory)
+                                ?.let { newCategory ->
+                                    onSelectedCategoryChanged(newCategory)
+                                }
+                        },
+                    )
+                }
+            }
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
