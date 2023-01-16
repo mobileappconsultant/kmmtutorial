@@ -24,7 +24,6 @@ class RecipeListViewModel @Inject constructor(
 ) : ViewModel() {
     val state: MutableState<RecipeListState> = mutableStateOf(RecipeListState())
 
-
     init {
         onTriggerEvent(RecipeListEvents.LoadRecipes)
     }
