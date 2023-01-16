@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
 class SearchRecipe(
-    private val recipeService: RecipeService, private
+    private val recipeService: RecipeService,
     val recipeCache: RecipeCache
 ) {
     fun execute(page: Int, query: String): Flow<DataState<List<Recipe>>> = flow {

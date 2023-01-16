@@ -32,14 +32,13 @@ class RecipeServiceImpl(
             parameters.append("page", page.toString())
             parameters.append("query", query)
         }
-        return httpclient.use {
-            it.get {
-                accept(ContentType.Application.Json)
-                url(url.build())
-                header("Authorization", TOKEN)
-                header("Content-Type", "application/json; charset=UTF-8")
-            }.body<RecipeSearchResponse>().result.map { it.toRecipe() }
-        }
+
+        return httpclient.get {
+            accept(ContentType.Application.Json)
+            url(url.build())
+            header("Authorization", TOKEN)
+            header("Content-Type", "application/json; charset=UTF-8")
+        }.body<RecipeSearchResponse>().result.map { it.toRecipe() }
     }
 
     override suspend fun getRecipe(id: Int): Recipe {

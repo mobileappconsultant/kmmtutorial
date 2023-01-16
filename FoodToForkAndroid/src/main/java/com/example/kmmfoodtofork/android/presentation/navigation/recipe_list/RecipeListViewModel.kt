@@ -23,10 +23,9 @@ class RecipeListViewModel @Inject constructor(
     private val searchRecipe: SearchRecipe
 ) : ViewModel() {
     val state: MutableState<RecipeListState> = mutableStateOf(RecipeListState())
-    private var job: Job? = null
+
 
     init {
-        job = Job()
         onTriggerEvent(RecipeListEvents.LoadRecipes)
     }
 
@@ -67,26 +66,20 @@ class RecipeListViewModel @Inject constructor(
     }
 
     private fun loadRecipes() {
-        if (job?.isCancelled == true) {
-            job = Job()
-        }
+        searchRecipe.execute(page = state.value.page, query = state.value.query)
+            .onEach { dataState ->
+                println("RecipeListVM [Loading] ${dataState.isLoading}")
+                state.value = state.value.copy(isLoading = dataState.isLoading)
+                dataState.data?.let { recipes ->
+                    println("RecipeListVM $recipes")
+                    appendRecipes(recipes)
+                }
+                dataState.message?.let { message ->
+                    println("RecipeListVM $message")
+                    handleError(message)
+                }
 
-        viewModelScope.launch(job!!) {
-            searchRecipe.execute(page = state.value.page, query = state.value.query)
-                .onEach { dataState ->
-                    println("RecipeListVM [Loading] ${dataState.isLoading}")
-                    state.value = state.value.copy(isLoading = dataState.isLoading)
-                    dataState.data?.let { recipes ->
-                        println("RecipeListVM $recipes")
-                        appendRecipes(recipes)
-                    }
-                    dataState.message?.let { message ->
-                        println("RecipeListVM $message")
-                        handleError(message)
-                    }
-
-                }.collect()/*.launchIn(viewModelScope)*/
-        }
+            }.launchIn(viewModelScope)
     }
 
     private fun appendRecipes(recipes: List<Recipe>) {
