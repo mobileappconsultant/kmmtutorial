@@ -14,6 +14,7 @@ class SearchRecipe(
 ) {
     fun execute(page: Int, query: String): Flow<DataState<List<Recipe>>> = flow {
         //emit
+        var recipeList: MutableList<Recipe> = mutableListOf()
         emit(DataState.loading())
         try {
             val recipes = recipeService.search(page, query)
@@ -22,7 +23,9 @@ class SearchRecipe(
             recipeCache.insert(recipes)
             val cacheResult = if (query.isBlank()) {
                 //BUG!
-                recipeCache.getAll(page = page)
+              //  recipeList = recipeCache.getAll(page = page).toMutableList()
+              //  println("Size : ".plus(recipeList.size))
+
                 //HACK TO FIX WHY IT'S RETURNING ONLY 1 ITEM
                 emit(DataState.data(null, recipes))
             } else {

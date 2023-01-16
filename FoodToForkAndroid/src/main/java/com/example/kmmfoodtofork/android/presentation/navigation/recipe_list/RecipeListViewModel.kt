@@ -11,8 +11,11 @@ import com.example.kmmfoodtofork.presentation.recipe_list.RecipeListEvents
 import com.example.kmmfoodtofork.presentation.recipe_list.RecipeListState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 
 @HiltViewModel
 class RecipeListViewModel @Inject constructor(
@@ -20,18 +23,28 @@ class RecipeListViewModel @Inject constructor(
     private val searchRecipe: SearchRecipe
 ) : ViewModel() {
     val state: MutableState<RecipeListState> = mutableStateOf(RecipeListState())
+    private var job: Job? = null
 
     init {
+        job = Job()
         onTriggerEvent(RecipeListEvents.LoadRecipes)
     }
 
-     fun onTriggerEvent(events: RecipeListEvents) {
+    fun onTriggerEvent(events: RecipeListEvents) {
         when (events) {
             RecipeListEvents.LoadRecipes -> {
                 loadRecipes()
             }
             RecipeListEvents.NextPage -> {
                 nextPage()
+            }
+
+            RecipeListEvents.NewSearchEvent -> {
+                newSearch()
+            }
+
+            is RecipeListEvents.OnUpdateQuery -> {
+                state.value = state.value.copy(query = events.updatedQuery)
             }
             else -> {
                 handleError("Invalid Event")
@@ -48,21 +61,32 @@ class RecipeListViewModel @Inject constructor(
         loadRecipes()
     }
 
-    private fun loadRecipes() {
-      searchRecipe.execute(page = state.value.page, query = state.value.query)
-            .onEach { dataState ->
-                println("RecipeListVM [Loading] ${dataState.isLoading}")
-                state.value = state.value.copy(isLoading = dataState.isLoading)
-                dataState.data?.let { recipes ->
-                    println("RecipeListVM $recipes")
-                    appendRecipes(recipes)
-                }
-                dataState.message?.let { message ->
-                    println("RecipeListVM $message")
-                    handleError(message)
-                }
+    private fun newSearch() {
+        state.value = state.value.copy(page = 1, recipes = listOf())
+        loadRecipes()
+    }
 
-            }.launchIn(viewModelScope)
+    private fun loadRecipes() {
+        if (job?.isCancelled == true) {
+            job = Job()
+        }
+
+        viewModelScope.launch(job!!) {
+            searchRecipe.execute(page = state.value.page, query = state.value.query)
+                .onEach { dataState ->
+                    println("RecipeListVM [Loading] ${dataState.isLoading}")
+                    state.value = state.value.copy(isLoading = dataState.isLoading)
+                    dataState.data?.let { recipes ->
+                        println("RecipeListVM $recipes")
+                        appendRecipes(recipes)
+                    }
+                    dataState.message?.let { message ->
+                        println("RecipeListVM $message")
+                        handleError(message)
+                    }
+
+                }.collect()/*.launchIn(viewModelScope)*/
+        }
     }
 
     private fun appendRecipes(recipes: List<Recipe>) {
@@ -70,4 +94,6 @@ class RecipeListViewModel @Inject constructor(
         current.addAll(recipes)
         state.value = state.value.copy(recipes = current)
     }
+
+
 }

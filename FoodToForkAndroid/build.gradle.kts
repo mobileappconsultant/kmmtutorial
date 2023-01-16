@@ -59,7 +59,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.5.1")
     implementation(Compose.hilt_navigation)
 
-    implementation ("com.google.code.gson:gson:2.9.0")
+    implementation("com.google.code.gson:gson:2.9.0")
     implementation(Google.material)
     implementation(Hilt.hiltAndroid)
     implementation(Hilt.hiltNavigation)
@@ -68,7 +68,7 @@ dependencies {
     implementation(Kotlinx.datetime)
 
     implementation(Ktor.android)
-    implementation ("io.ktor:ktor-client-serialization:1.5.0")
+    implementation(Ktor.clientSerialization)
 
 
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")

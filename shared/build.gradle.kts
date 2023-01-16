@@ -19,16 +19,14 @@ kotlin {
     }
 
     sourceSets {
-        val ktorVersion = "2.2.2"
-        val kotlinserialzation = "1.4.1"
         val commonMain by getting {
             dependencies {
                 implementation(Kotlinx.datetime)
-                implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
-                implementation("io.ktor:ktor-client-logging:$ktorVersion")
-                implementation("io.ktor:ktor-client-core:$ktorVersion")
-                implementation("io.ktor:ktor-client-serialization:$ktorVersion")
-                implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
+                implementation(Ktor.content_negotiation)
+                implementation(Ktor.logging)
+                implementation(Ktor.core)
+                implementation(Ktor.clientSerialization)
+                implementation(Ktor.serialization_kotlinx)
                 implementation(SQLDelight.runtime)
             }
         }
@@ -39,8 +37,8 @@ kotlin {
         }
         val androidMain by getting {
             dependencies {
-                implementation("io.ktor:ktor-client-okhttp:$ktorVersion")
-                implementation("io.ktor:ktor-client-serialization:$ktorVersion")
+                implementation(Ktor.ktor_client_android_okhttp)
+                implementation(Ktor.clientSerialization)
                 implementation(SQLDelight.androidDriver)
             }
         }
@@ -54,7 +52,7 @@ kotlin {
             iosArm64Main.dependsOn(this)
             iosSimulatorArm64Main.dependsOn(this)
             dependencies {
-                implementation("io.ktor:ktor-client-darwin:$ktorVersion")
+                implementation(Ktor.ktor_darwin)
                 implementation(SQLDelight.nativeDriver)
             }
         }
