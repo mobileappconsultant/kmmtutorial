@@ -11,4 +11,6 @@ sealed class RecipeListEvents {
     data class OnUpdateQuery(val updatedQuery: String) : RecipeListEvents()
 
     data class OnCategorySelect(val selectedCategory: FoodCategory) : RecipeListEvents()
+
+    object OnRemoveHeadFromQueue : RecipeListEvents()
 }

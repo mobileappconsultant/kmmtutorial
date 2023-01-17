@@ -5,12 +5,19 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.kmmfoodtofork.domain.model.GenericMessageInfo
+import com.example.kmmfoodtofork.domain.model.NegativeAction
+import com.example.kmmfoodtofork.domain.model.PositiveAction
 import com.example.kmmfoodtofork.domain.model.Recipe
+import com.example.kmmfoodtofork.domain.model.UiComponentType
+import com.example.kmmfoodtofork.domain.model.util.GenericMessageInfoUtil
+import com.example.kmmfoodtofork.domain.model.util.Queue
 import com.example.kmmfoodtofork.interactors.recipe_list.SearchRecipe
 import com.example.kmmfoodtofork.presentation.recipe_list.FoodCategory
 import com.example.kmmfoodtofork.presentation.recipe_list.RecipeListEvents
 import com.example.kmmfoodtofork.presentation.recipe_list.RecipeListState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import java.util.*
 import javax.inject.Inject
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -24,6 +31,29 @@ class RecipeListViewModel @Inject constructor(
 
     init {
         onTriggerEvent(RecipeListEvents.LoadRecipes)
+
+        // EXAMPLE
+        /*       val messageInfoBuilder = GenericMessageInfo.Builder()
+                   .id(UUID.randomUUID().toString())
+                 .title("Weird")
+                   .uiComponentType(UiComponentType.Dialog)
+                   .description("I don't know what's happening.")
+                   .positive(PositiveAction(
+                       positiveBtnTxt = "OK",
+                       onPositiveAction = {
+                            //do something special??
+                           state.value = state.value.copy(query = "Kale")
+                           onTriggerEvent(RecipeListEvents.NewSearchEvent)
+                       }
+                   ))
+                   .negative(NegativeAction(
+                       negativeBtnTxt = "Cancel",
+                       onNegativeAction = {
+                           state.value = state.value.copy(query = "Cookies")
+                           onTriggerEvent(RecipeListEvents.NewSearchEvent)
+                       }
+                   ))
+               appendToMessageQueue(messageInfo = messageInfoBuilder)*/
     }
 
     fun onTriggerEvent(events: RecipeListEvents) {
@@ -35,6 +65,9 @@ class RecipeListViewModel @Inject constructor(
                 nextPage()
             }
 
+            is RecipeListEvents.OnRemoveHeadFromQueue -> {
+                removeHeadMessage()
+            }
             RecipeListEvents.NewSearchEvent -> {
                 newSearch()
             }
@@ -47,7 +80,14 @@ class RecipeListViewModel @Inject constructor(
                 onSelectCategory(events.selectedCategory)
             }
             else -> {
-                handleError("Invalid Event")
+                appendToMessageQueue(
+                    GenericMessageInfo.Builder()
+                        .id("SearchRecipes.Error")
+                        .uiComponentType(UiComponentType.Dialog)
+                        .title("Error")
+                        .description("Invalid Event")
+
+                )
             }
         }
     }
@@ -57,8 +97,21 @@ class RecipeListViewModel @Inject constructor(
         newSearch()
     }
 
-    private fun handleError(errorMessage: String) {
-        //TODO handle the error
+    /*    this is shit.. at the time it's believed that KMM doesn't allow extension
+        functions to be used in swift hence this util class*/
+    private fun appendToMessageQueue(messageInfo: GenericMessageInfo.Builder) {
+        if (!state.value?.errorQueueListScreen?.let {
+                GenericMessageInfoUtil()
+                    .doesMessageAlreadyExistInQueue(
+                        queue = it,
+                        messageInfo = messageInfo.build()
+                    )
+            }!!
+        ) {
+            val queue = state.value?.errorQueueListScreen
+            queue?.add(messageInfo.build())
+            state.value = queue?.let { state.value?.copy(errorQueueListScreen = it) }!!
+        }
     }
 
     private fun nextPage() {
@@ -82,7 +135,7 @@ class RecipeListViewModel @Inject constructor(
                 }
                 dataState.message?.let { message ->
                     println("RecipeListVM $message")
-                    handleError(message)
+                    appendToMessageQueue(message)
                 }
 
             }.launchIn(viewModelScope)
@@ -92,6 +145,18 @@ class RecipeListViewModel @Inject constructor(
         var current = state.value.recipes.toMutableList()
         current.addAll(recipes)
         state.value = state.value.copy(recipes = current)
+    }
+
+    private fun removeHeadMessage() {
+        try {
+            val queue = state.value.errorQueueListScreen
+            queue.remove() // can throw exception if empty
+            state.value =
+                state.value.copy(errorQueueListScreen = Queue(mutableListOf())) // force recompose
+            state.value = state.value.copy(errorQueueListScreen = queue)
+        } catch (e: Exception) {
+            // nothing to remove, queue is empty
+        }
     }
 
 

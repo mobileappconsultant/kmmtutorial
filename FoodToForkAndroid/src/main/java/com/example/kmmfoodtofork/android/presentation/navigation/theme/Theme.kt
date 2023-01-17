@@ -12,7 +12,10 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.example.kmmfoodtofork.android.presentation.components.CircularIndeterminateProgressBar
+import com.example.kmmfoodtofork.android.presentation.components.ProcessDialogQueue
 import com.example.kmmfoodtofork.android.presentation.navigation.theme.Type.QuickSandTypography
+import com.example.kmmfoodtofork.domain.model.GenericMessageInfo
+import com.example.kmmfoodtofork.domain.model.util.Queue
 
 @SuppressLint("ConflictingOnColor")
 private val LightThemeColors = lightColors(
@@ -35,6 +38,8 @@ private val LightThemeColors = lightColors(
 @Composable
 fun AppTheme(
     displayProgressBar: Boolean,
+    dialogQueue: Queue<GenericMessageInfo>? = Queue(mutableListOf()),
+    onRemoveHeadMessageFromQueue: () -> Unit,
     content: @Composable () -> Unit,
 ) {
     MaterialTheme(
@@ -47,6 +52,10 @@ fun AppTheme(
                 .fillMaxSize()
                 .background(color = Grey1)
         ) {
+            ProcessDialogQueue(
+                dialogQueue = dialogQueue,
+                onRemoveHeadMessageFromQueue = onRemoveHeadMessageFromQueue
+            )
             content()
             CircularIndeterminateProgressBar(isDisplayed = displayProgressBar, verticalBias = 0.30f)
         }
