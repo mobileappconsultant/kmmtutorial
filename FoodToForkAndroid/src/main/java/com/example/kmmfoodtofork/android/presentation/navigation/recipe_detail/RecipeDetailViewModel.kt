@@ -5,8 +5,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.kmmfoodtofork.domain.model.Recipe
 import com.example.kmmfoodtofork.interactors.recipe_detail.GetRecipe
+import com.example.kmmfoodtofork.presentation.recipe_detail.RecipeDetailState
+import com.example.kmmfoodtofork.presentation.recipe_detail.RecipeDetailEvents
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.launchIn
@@ -19,23 +20,33 @@ class RecipeDetailViewModel @Inject constructor(
     private val getRecipe: GetRecipe
 ) :
     ViewModel() {
-    val recipe: MutableState<Recipe?> = mutableStateOf(null)
+    val state: MutableState<RecipeDetailState?> = mutableStateOf(RecipeDetailState())
 
     init {
         savedStateHandle.get<Int>("recipeId")?.let { recipeId ->
-            loadRecipe(recipeId)
-
+            onTriggerEvent(RecipeDetailEvents.GetRecipe(recipeId = recipeId))
         }
-
     }
 
-    private fun loadRecipe(recipeId: Int){
-        getRecipe.execute(recipeId).onEach {dataState->
+     fun onTriggerEvent(recipeDetailEvents: RecipeDetailEvents) {
+        when (recipeDetailEvents) {
+            is RecipeDetailEvents.GetRecipe -> {
+                loadRecipe(recipeDetailEvents.recipeId)
+            }
+            else -> {
+                handleError("Invalid State")
+            }
+        }
+    }
+
+    private fun loadRecipe(recipeId: Int) {
+        getRecipe.execute(recipeId).onEach { dataState ->
+            state.value  = state.value?.copy(isLoading = dataState.isLoading)
             println("RecipeDetailVM [Loading] ${dataState.isLoading}")
 
             dataState.data?.let { recipe ->
                 println("RecipeDetailVM $recipe")
-                this.recipe.value = recipe
+                this.state.value = state.value?.copy(recipe = recipe)
             }
 
             dataState.message?.let { message ->
@@ -44,4 +55,7 @@ class RecipeDetailViewModel @Inject constructor(
         }.launchIn(viewModelScope)
     }
 
+    private fun handleError(error: String) {
+        //TODO
+    }
 }

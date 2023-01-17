@@ -1,6 +1,10 @@
+@file:OptIn(ExperimentalComposeUiApi::class)
+
 package com.example.kmmfoodtofork.android.presentation.navigation
 
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -13,6 +17,7 @@ import com.example.kmmfoodtofork.android.presentation.navigation.recipe_list.Rec
 import com.example.kmmfoodtofork.android.presentation.navigation.recipe_list.RecipeListViewModel
 
 
+@OptIn(ExperimentalMaterialApi::class, ExperimentalStdlibApi::class)
 @Composable
 fun Navigation() {
     val navController = rememberNavController()
@@ -36,7 +41,10 @@ fun Navigation() {
 
         ) { _ ->
             val recipeDetailViewModel = hiltViewModel<RecipeDetailViewModel>()
-            recipeDetailViewModel.recipe.value?.let { RecipeDetailScreen(recipe = it) }
+            recipeDetailViewModel.state.value?.let {
+                RecipeDetailScreen(state = it,
+                    onTriggerEvent =recipeDetailViewModel::onTriggerEvent )
+            }
 
         }
     }

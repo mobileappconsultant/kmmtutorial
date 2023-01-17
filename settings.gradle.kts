@@ -9,3 +9,4 @@ pluginManagement {
 rootProject.name = "KMMFoodToFork"
 include(":FoodToForkAndroid")
 include(":shared")
+include(":test")
