@@ -5,11 +5,12 @@ import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.ExperimentalComposeUiApi
+import com.codingwithmitch.food2forkkmm.presentation.recipe_list.FoodCategoryUtil
+import com.codingwithmitch.food2forkkmm.presentation.recipe_list.RecipeListState
 import com.example.kmmfoodtofork.android.presentation.navigation.recipe_list.components.SearchAppBar
 import com.example.kmmfoodtofork.android.presentation.navigation.theme.AppTheme
-import com.example.kmmfoodtofork.presentation.recipe_list.FoodCategoryUtil
 import com.example.kmmfoodtofork.presentation.recipe_list.RecipeListEvents
-import com.example.kmmfoodtofork.presentation.recipe_list.RecipeListState
+
 
 @OptIn(ExperimentalComposeUiApi::class, ExperimentalMaterialApi::class)
 @Composable
@@ -19,9 +20,9 @@ fun RecipeList(
     onClickRecipeListItem: (Int) -> Unit
 ) {
 
-    AppTheme(displayProgressBar = false, dialogQueue = state.errorQueueListScreen,
+    AppTheme(displayProgressBar = false, dialogQueue = state.queue,
         onRemoveHeadMessageFromQueue = {
-            onTriggerEvent(RecipeListEvents.OnRemoveHeadFromQueue)
+            onTriggerEvent(RecipeListEvents.OnRemoveHeadMessageFromQueue)
         }) {
         val foodCategories = remember {
             FoodCategoryUtil().getAllFoodCategories()
@@ -33,12 +34,12 @@ fun RecipeList(
                     onTriggerEvent(RecipeListEvents.OnUpdateQuery(it))
                 },
                 onExecuteSearch = {
-                    onTriggerEvent(RecipeListEvents.NewSearchEvent)
+                    onTriggerEvent(RecipeListEvents.NewSearch)
                 },
                 categories = foodCategories,
                 selectedCategory = state.selectedCategory,
                 onSelectedCategoryChanged = {
-                    onTriggerEvent(RecipeListEvents.OnCategorySelect(it))
+                    onTriggerEvent(RecipeListEvents.OnSelectCategory(it))
                 },
             )
         }

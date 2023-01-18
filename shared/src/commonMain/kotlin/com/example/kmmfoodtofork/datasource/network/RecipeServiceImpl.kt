@@ -1,11 +1,11 @@
-package com.example.kmmfoodtofork.datasourc.network
+package com.example.kmmfoodtofork.datasource.network
 
+import com.example.kmmfoodtofork.datasource.network.model.RecipeDto
 import com.example.kmmfoodtofork.datasource.cache.Recipe_Entity
 import com.example.kmmfoodtofork.datasource.cache.convertIngredientsToList
-import com.example.kmmfoodtofork.datasource.network.model.RecipeDto
 import com.example.kmmfoodtofork.datasource.network.model.RecipeSearchResponse
 import com.example.kmmfoodtofork.domain.model.Recipe
-import com.example.kmmfoodtofork.domain.model.util.DatetimeUtil
+import com.example.kmmfoodtofork.domain.util.DatetimeUtil
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.accept
@@ -16,13 +16,11 @@ import io.ktor.http.ContentType
 import io.ktor.http.URLBuilder
 import io.ktor.http.URLProtocol
 import io.ktor.http.encodedPath
-import io.ktor.utils.io.core.use
+
 
 class RecipeServiceImpl(
-    private val httpclient: HttpClient,
-    private val baseUrl: String
+    private val httpclient: HttpClient, private val baseUrl: String
 ) : RecipeService {
-
     override suspend fun search(page: Int, query: String): List<Recipe> {
         val url = URLBuilder().apply {
             host = "food2fork.ca"
@@ -38,10 +36,10 @@ class RecipeServiceImpl(
             url(url.build())
             header("Authorization", TOKEN)
             header("Content-Type", "application/json; charset=UTF-8")
-        }.body<RecipeSearchResponse>().result.map { it.toRecipe() }
+        }.body<RecipeSearchResponse>().results.map { it.toRecipe() }
     }
 
-    override suspend fun getRecipe(id: Int): Recipe {
+    override suspend fun get(id: Int): Recipe {
         val url = URLBuilder().apply {
             host = "food2fork.ca"
             port = 80
@@ -58,8 +56,6 @@ class RecipeServiceImpl(
             header("Content-Type", "application/json; charset=UTF-8")
         }.body<RecipeDto>().toRecipe()
     }
-
-
     fun Recipe_Entity.toRecipe(): Recipe {
         val datetimeUtil = DatetimeUtil()
         return Recipe(
@@ -84,4 +80,6 @@ class RecipeServiceImpl(
         val RECIPE_PAGINATION_PAGE_SIZE = 30
 
     }
+
 }
+

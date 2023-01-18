@@ -6,9 +6,9 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.kmmfoodtofork.domain.model.GenericMessageInfo
-import com.example.kmmfoodtofork.domain.model.UiComponentType
-import com.example.kmmfoodtofork.domain.model.util.GenericMessageInfoUtil
-import com.example.kmmfoodtofork.domain.model.util.Queue
+import com.example.kmmfoodtofork.domain.model.UIComponentType
+import com.example.kmmfoodtofork.domain.util.GenericMessageInfoQueueUtil
+import com.example.kmmfoodtofork.domain.util.Queue
 import com.example.kmmfoodtofork.interactors.recipe_detail.GetRecipe
 import com.example.kmmfoodtofork.presentation.recipe_detail.RecipeDetailState
 import com.example.kmmfoodtofork.presentation.recipe_detail.RecipeDetailEvents
@@ -36,7 +36,7 @@ class RecipeDetailViewModel @Inject constructor(
             is RecipeDetailEvents.GetRecipe -> {
                 loadRecipe(recipeDetailEvents.recipeId)
             }
-            is RecipeDetailEvents.OnRemoveHeadFromQueue -> {
+            is RecipeDetailEvents.OnRemoveHeadMessageFromQueue -> {
                 removeHeadMessage()
             }
             else -> {
@@ -44,7 +44,7 @@ class RecipeDetailViewModel @Inject constructor(
                 appendToMessageQueue(
                     GenericMessageInfo.Builder()
                         .id("SearchRecipes.Error")
-                        .uiComponentType(UiComponentType.Dialog)
+                        .uiComponentType(UIComponentType.Dialog)
                         .title("Error")
                         .description(error)
                 )
@@ -72,27 +72,26 @@ class RecipeDetailViewModel @Inject constructor(
     /*    this is shit.. at the time it's believed that KMM doesn't allow extension
         functions to be used in swift hence this util class*/
     private fun appendToMessageQueue(messageInfo: GenericMessageInfo.Builder) {
-        if (!state.value?.errorQueueDetailScreen?.let {
-                GenericMessageInfoUtil()
-                    .doesMessageAlreadyExistInQueue(
-                        queue = it,
-                        messageInfo = messageInfo.build()
-                    )
+        if (!state.value?.queue?.let {
+                GenericMessageInfoQueueUtil().doesMessageAlreadyExistInQueue(
+                    queue = it,
+                    messageInfo = messageInfo.build()
+                )
             }!!
         ) {
-            val queue = state.value?.errorQueueDetailScreen
+            val queue = state.value?.queue
             queue?.add(messageInfo.build())
-            state.value = queue?.let { state.value?.copy(errorQueueDetailScreen = it) }
+            state.value = queue?.let { state.value?.copy(queue = it) }
         }
     }
 
     private fun removeHeadMessage() {
         try {
-            val queue = state.value?.errorQueueDetailScreen
+            val queue = state.value?.queue
             queue?.remove() // can throw exception if empty
             state.value =
-                state.value?.copy(errorQueueDetailScreen = Queue(mutableListOf())) // force recompose
-            state.value = state?.value?.copy(errorQueueDetailScreen = queue!!)
+                state.value?.copy(queue = Queue(mutableListOf())) // force recompose
+            state.value = state?.value?.copy(queue = queue!!)
         } catch (e: Exception) {
             // nothing to remove, queue is empty
         }

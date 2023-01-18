@@ -1,4 +1,4 @@
-package com.example.kmmfoodtofork.datasourc.network
+package com.example.kmmfoodtofork.datasource.network
 
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation

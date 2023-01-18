@@ -19,8 +19,9 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import com.example.kmmfoodtofork.presentation.recipe_list.FoodCategory
-import com.example.kmmfoodtofork.presentation.recipe_list.FoodCategoryUtil
+import com.codingwithmitch.food2forkkmm.presentation.recipe_list.FoodCategory
+import com.codingwithmitch.food2forkkmm.presentation.recipe_list.FoodCategoryUtil
+
 
 @ExperimentalComposeUiApi
 @Composable
@@ -75,7 +76,7 @@ fun SearchAppBar(
                         category = it.value,
                         isSelected = selectedCategory == it,
                         onSelectedCategoryChange = { foodCategory ->
-                            FoodCategoryUtil().getFoodCategoryByValue(foodCategory)
+                            FoodCategoryUtil().getFoodCategory(foodCategory)
                                 ?.let { newCategory ->
                                     onSelectedCategoryChanged(newCategory)
                                 }

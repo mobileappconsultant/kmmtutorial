@@ -5,7 +5,7 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.dp
 import com.example.kmmfoodtofork.android.presentation.components.RECIPE_IMAGE_HEIGHT
-import com.example.kmmfoodtofork.datasourc.network.RecipeServiceImpl.Companion.RECIPE_PAGINATION_PAGE_SIZE
+import com.example.kmmfoodtofork.datasource.network.RecipeServiceImpl.Companion.RECIPE_PAGINATION_PAGE_SIZE
 import com.example.kmmfoodtofork.domain.model.Recipe
 
 @Composable

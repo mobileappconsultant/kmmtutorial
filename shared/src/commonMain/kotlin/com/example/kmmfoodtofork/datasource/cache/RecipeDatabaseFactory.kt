@@ -1,22 +1,22 @@
 package com.example.kmmfoodtofork.datasource.cache
 
 import com.example.kmmfoodtofork.domain.model.Recipe
-import com.example.kmmfoodtofork.domain.model.util.DatetimeUtil
+import com.example.kmmfoodtofork.domain.util.DatetimeUtil
 import com.squareup.sqldelight.db.SqlDriver
 
-class RecipeDatabaseFactory(private val driverFactory: DriverFactory) {
+class RecipeDatabaseFactory(
+    private val driverFactory: DriverFactory
+){
     fun createDatabase(): RecipeDatabase {
         return RecipeDatabase(driverFactory.createDriver())
     }
 }
 
-
 expect class DriverFactory {
     fun createDriver(): SqlDriver
 }
 
-
-fun Recipe_Entity.toRecipe(): Recipe? {
+fun Recipe_Entity.toRecipe(): Recipe {
     val datetimeUtil = DatetimeUtil()
     return Recipe(
         id = id.toInt(),
@@ -27,18 +27,29 @@ fun Recipe_Entity.toRecipe(): Recipe? {
         sourceUrl = source_url,
         ingredients = ingredients.convertIngredientsToList(),
         dateAdded = datetimeUtil.toLocalDate(date_added),
-        dateUpdated = datetimeUtil.toLocalDate(date_updated)
+        dateUpdated = datetimeUtil.toLocalDate(date_updated),
     )
 }
 
-fun List<String>.convertIngredientsToString(): String {
-    val stringBuilder = StringBuilder()
-    this.forEach { stringBuilder.append(it.plus(",")) }
-    return stringBuilder.toString()
+fun List<Recipe_Entity>.toRecipeList(): List<Recipe>{
+    return map{it.toRecipe()}
 }
 
-fun String.convertIngredientsToList(): List<String> {
-    return this.split(",").toList()
+/**
+ * "Carrot, potato, Chicken, ..."
+ */
+fun List<String>.convertIngredientListToString(): String {
+    val ingredientsString = StringBuilder()
+    for(ingredient in this){
+        ingredientsString.append("$ingredient,")
+    }
+    return ingredientsString.toString()
 }
 
-
+fun String.convertIngredientsToList(): List<String>{
+    val list: ArrayList<String> = ArrayList()
+    for(ingredient in split(",")){
+        list.add(ingredient)
+    }
+    return list
+}

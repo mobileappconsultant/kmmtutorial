@@ -15,7 +15,8 @@ import com.example.kmmfoodtofork.android.presentation.components.CircularIndeter
 import com.example.kmmfoodtofork.android.presentation.components.ProcessDialogQueue
 import com.example.kmmfoodtofork.android.presentation.navigation.theme.Type.QuickSandTypography
 import com.example.kmmfoodtofork.domain.model.GenericMessageInfo
-import com.example.kmmfoodtofork.domain.model.util.Queue
+import com.example.kmmfoodtofork.domain.util.Queue
+
 
 @SuppressLint("ConflictingOnColor")
 private val LightThemeColors = lightColors(

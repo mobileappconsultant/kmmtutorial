@@ -1,9 +1,10 @@
 package com.example.kmmfoodtofork.android.di
 
-import com.example.kmmfoodtofork.datasourc.network.RecipeService
-import com.example.kmmfoodtofork.datasource.cache.RecipeCache
-import com.example.kmmfoodtofork.interactors.recipe_detail.GetRecipe
 import com.example.kmmfoodtofork.interactors.recipe_list.SearchRecipe
+import com.example.kmmfoodtofork.datasource.cache.RecipeCache
+import com.example.kmmfoodtofork.datasource.network.RecipeService
+import com.example.kmmfoodtofork.interactors.recipe_detail.GetRecipe
+
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

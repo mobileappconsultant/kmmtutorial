@@ -5,19 +5,17 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.kmmfoodtofork.domain.model.GenericMessageInfo
-import com.example.kmmfoodtofork.domain.model.NegativeAction
-import com.example.kmmfoodtofork.domain.model.PositiveAction
-import com.example.kmmfoodtofork.domain.model.Recipe
-import com.example.kmmfoodtofork.domain.model.UiComponentType
-import com.example.kmmfoodtofork.domain.model.util.GenericMessageInfoUtil
-import com.example.kmmfoodtofork.domain.model.util.Queue
-import com.example.kmmfoodtofork.interactors.recipe_list.SearchRecipe
-import com.example.kmmfoodtofork.presentation.recipe_list.FoodCategory
+import com.codingwithmitch.food2forkkmm.presentation.recipe_list.FoodCategory
 import com.example.kmmfoodtofork.presentation.recipe_list.RecipeListEvents
-import com.example.kmmfoodtofork.presentation.recipe_list.RecipeListState
+import com.codingwithmitch.food2forkkmm.presentation.recipe_list.RecipeListState
+import com.example.kmmfoodtofork.domain.model.GenericMessageInfo
+import com.example.kmmfoodtofork.domain.model.Recipe
+import com.example.kmmfoodtofork.domain.model.UIComponentType
+import com.example.kmmfoodtofork.domain.util.GenericMessageInfoQueueUtil
+import com.example.kmmfoodtofork.domain.util.Queue
+import com.example.kmmfoodtofork.interactors.recipe_list.SearchRecipe
+
 import dagger.hilt.android.lifecycle.HiltViewModel
-import java.util.*
 import javax.inject.Inject
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -65,25 +63,25 @@ class RecipeListViewModel @Inject constructor(
                 nextPage()
             }
 
-            is RecipeListEvents.OnRemoveHeadFromQueue -> {
+            is RecipeListEvents.OnRemoveHeadMessageFromQueue -> {
                 removeHeadMessage()
             }
-            RecipeListEvents.NewSearchEvent -> {
+            RecipeListEvents.NewSearch -> {
                 newSearch()
             }
 
             is RecipeListEvents.OnUpdateQuery -> {
-                state.value = state.value.copy(query = events.updatedQuery, selectedCategory = null)
+                state.value = state.value.copy(query = events.query, selectedCategory = null)
             }
 
-            is RecipeListEvents.OnCategorySelect -> {
-                onSelectCategory(events.selectedCategory)
+            is RecipeListEvents.OnSelectCategory -> {
+                onSelectCategory(events.category)
             }
             else -> {
                 appendToMessageQueue(
                     GenericMessageInfo.Builder()
                         .id("SearchRecipes.Error")
-                        .uiComponentType(UiComponentType.Dialog)
+                        .uiComponentType(UIComponentType.Dialog)
                         .title("Error")
                         .description("Invalid Event")
 
@@ -100,17 +98,17 @@ class RecipeListViewModel @Inject constructor(
     /*    this is shit.. at the time it's believed that KMM doesn't allow extension
         functions to be used in swift hence this util class*/
     private fun appendToMessageQueue(messageInfo: GenericMessageInfo.Builder) {
-        if (!state.value?.errorQueueListScreen?.let {
-                GenericMessageInfoUtil()
+        if (!state.value?.queue?.let {
+                GenericMessageInfoQueueUtil()
                     .doesMessageAlreadyExistInQueue(
                         queue = it,
                         messageInfo = messageInfo.build()
                     )
             }!!
         ) {
-            val queue = state.value?.errorQueueListScreen
+            val queue = state.value?.queue
             queue?.add(messageInfo.build())
-            state.value = queue?.let { state.value?.copy(errorQueueListScreen = it) }!!
+            state.value = queue?.let { state.value?.copy(queue = it) }!!
         }
     }
 
@@ -149,11 +147,11 @@ class RecipeListViewModel @Inject constructor(
 
     private fun removeHeadMessage() {
         try {
-            val queue = state.value.errorQueueListScreen
+            val queue = state.value.queue
             queue.remove() // can throw exception if empty
             state.value =
-                state.value.copy(errorQueueListScreen = Queue(mutableListOf())) // force recompose
-            state.value = state.value.copy(errorQueueListScreen = queue)
+                state.value.copy(queue = Queue(mutableListOf())) // force recompose
+            state.value = state.value.copy(queue = queue)
         } catch (e: Exception) {
             // nothing to remove, queue is empty
         }

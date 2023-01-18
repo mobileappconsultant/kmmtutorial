@@ -2,8 +2,10 @@ package com.example.kmmfoodtofork.domain.model
 
 import kotlinx.datetime.LocalDateTime
 
-
-data class Recipe(
+/**
+ * See Recipe example: https://food2fork.ca/
+ */
+data class Recipe (
     val id: Int,
     val title: String,
     val publisher: String,
@@ -14,4 +16,9 @@ data class Recipe(
     val dateAdded: LocalDateTime,
     val dateUpdated: LocalDateTime,
 )
+
+
+
+
+
 

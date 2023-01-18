@@ -1,12 +1,11 @@
-package com.example.kmmfoodtofork.datasourc.network
+package com.example.kmmfoodtofork.datasource.network
 
 import com.example.kmmfoodtofork.datasource.network.model.RecipeDto
 import com.example.kmmfoodtofork.domain.model.Recipe
-import com.example.kmmfoodtofork.domain.model.util.DatetimeUtil
-import io.ktor.client.HttpClient
+import com.example.kmmfoodtofork.domain.util.DatetimeUtil
+import io.ktor.client.*
 
-
-expect class KtorClientFactory {
+expect class KtorClientFactory() {
     fun build(): HttpClient
 }
 
@@ -25,6 +24,6 @@ fun RecipeDto.toRecipe(): Recipe {
     )
 }
 
-fun List<RecipeDto>.toList(): List<Recipe> {
-    return map { it.toRecipe() }
+fun List<RecipeDto>.toRecipeList(): List<Recipe>{
+    return map{it.toRecipe()}
 }

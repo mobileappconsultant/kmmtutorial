@@ -12,10 +12,8 @@ import com.example.kmmfoodtofork.android.presentation.components.RECIPE_IMAGE_HE
 import com.example.kmmfoodtofork.android.presentation.navigation.recipe_detail.components.LoadingRecipeShimmer
 import com.example.kmmfoodtofork.android.presentation.navigation.recipe_detail.components.RecipeView
 import com.example.kmmfoodtofork.android.presentation.navigation.theme.AppTheme
-import com.example.kmmfoodtofork.domain.model.util.Queue
-import com.example.kmmfoodtofork.presentation.recipe_detail.RecipeDetailState
 import com.example.kmmfoodtofork.presentation.recipe_detail.RecipeDetailEvents
-import com.example.kmmfoodtofork.presentation.recipe_list.RecipeListEvents
+import com.example.kmmfoodtofork.presentation.recipe_detail.RecipeDetailState
 
 @ExperimentalMaterialApi
 @ExperimentalComposeUiApi
@@ -26,9 +24,9 @@ fun RecipeDetailScreen(
     onTriggerEvent: (RecipeDetailEvents) -> Unit, // this will be used later when we do the error handling
 ) {
     AppTheme(
-        displayProgressBar = state.isLoading, dialogQueue = state.errorQueueDetailScreen,
+        displayProgressBar = state.isLoading, dialogQueue = state.queue,
         onRemoveHeadMessageFromQueue = {
-            onTriggerEvent(RecipeDetailEvents.OnRemoveHeadFromQueue)
+            onTriggerEvent(RecipeDetailEvents.OnRemoveHeadMessageFromQueue)
         }
     ) {
         if (state.recipe == null && state.isLoading) {

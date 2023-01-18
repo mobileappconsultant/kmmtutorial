@@ -1,4 +1,4 @@
-package com.example.kmmfoodtofork.presentation.recipe_list
+package com.codingwithmitch.food2forkkmm.presentation.recipe_list
 
 class FoodCategoryUtil {
     fun getAllFoodCategories(): List<FoodCategory> {
@@ -13,13 +13,12 @@ class FoodCategoryUtil {
             FoodCategory.VEGAN,
             FoodCategory.PIZZA,
             FoodCategory.DONUT
-
         )
     }
 
-    fun getFoodCategoryByValue(value: String): FoodCategory? {
+    fun getFoodCategory(value: String): FoodCategory? {
         val map = FoodCategory.values().associateBy(FoodCategory::value)
         return map[value]
     }
-}
 
+}

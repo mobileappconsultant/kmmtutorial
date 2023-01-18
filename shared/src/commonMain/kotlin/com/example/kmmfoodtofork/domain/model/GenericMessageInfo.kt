@@ -1,12 +1,12 @@
 package com.example.kmmfoodtofork.domain.model
 
 class GenericMessageInfo
-private constructor(builder: GenericMessageInfo.Builder) {
+private constructor(builder: Builder){
 
     // required
     val id: String
     val title: String
-    val uiComponentType: UiComponentType
+    val uiComponentType: UIComponentType
 
     // optional
     val onDismiss: (() -> Unit)?
@@ -15,13 +15,13 @@ private constructor(builder: GenericMessageInfo.Builder) {
     val negativeAction: NegativeAction?
 
     init {
-        if (builder.id == null) {
+        if(builder.id == null){
             throw Exception("GenericDialog id cannot be null.")
         }
-        if (builder.title == null) {
+        if(builder.title == null){
             throw Exception("GenericDialog title cannot be null.")
         }
-        if (builder.uiComponentType == null) {
+        if(builder.uiComponentType == null){
             throw Exception("GenericDialog uiComponentType cannot be null.")
         }
         this.id = builder.id!!
@@ -44,7 +44,7 @@ private constructor(builder: GenericMessageInfo.Builder) {
         var onDismiss: (() -> Unit)? = null
             private set
 
-        var uiComponentType: UiComponentType? = null
+        var uiComponentType: UIComponentType? = null
             private set
 
         var description: String? = null
@@ -72,8 +72,8 @@ private constructor(builder: GenericMessageInfo.Builder) {
         }
 
         fun uiComponentType(
-            uiComponentType: UiComponentType
-        ): Builder {
+            uiComponentType: UIComponentType
+        ) : Builder {
             this.uiComponentType = uiComponentType
             return this
         }
@@ -87,14 +87,14 @@ private constructor(builder: GenericMessageInfo.Builder) {
 
         fun positive(
             positiveAction: PositiveAction?,
-        ): Builder {
+        ) : Builder {
             this.positiveAction = positiveAction
             return this
         }
 
         fun negative(
             negativeAction: NegativeAction
-        ): Builder {
+        ) : Builder {
             this.negativeAction = negativeAction
             return this
         }

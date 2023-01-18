@@ -16,7 +16,8 @@ import androidx.compose.ui.unit.dp
 import androidx.core.text.HtmlCompat
 import com.example.kmmfoodtofork.android.presentation.components.RecipeImage
 import com.example.kmmfoodtofork.domain.model.Recipe
-import com.example.kmmfoodtofork.domain.model.util.DatetimeUtil
+import com.example.kmmfoodtofork.domain.util.DatetimeUtil
+
 
 @OptIn(ExperimentalStdlibApi::class)
 @Composable

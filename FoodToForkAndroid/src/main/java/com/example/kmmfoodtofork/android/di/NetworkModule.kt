@@ -1,8 +1,8 @@
 package com.example.kmmfoodtofork.android.di
 
-import com.example.kmmfoodtofork.datasourc.network.KtorClientFactory
-import com.example.kmmfoodtofork.datasourc.network.RecipeService
-import com.example.kmmfoodtofork.datasourc.network.RecipeServiceImpl
+import com.example.kmmfoodtofork.datasource.network.KtorClientFactory
+import com.example.kmmfoodtofork.datasource.network.RecipeService
+import com.example.kmmfoodtofork.datasource.network.RecipeServiceImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -1,4 +1,4 @@
-package com.example.kmmfoodtofork.domain.model.util
+package com.example.kmmfoodtofork.domain.util
 
 /**
  * Kotlin version of a java.util Queue

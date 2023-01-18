@@ -1,4 +1,4 @@
-package com.example.kmmfoodtofork.domain.model.util
+package com.example.kmmfoodtofork.domain.util
 
 import com.example.kmmfoodtofork.domain.model.GenericMessageInfo
 
@@ -29,8 +29,6 @@ data class DataState<T>(
             )
         }
 
-        fun <T> loading() = DataState<T>(isLoading = true)
+        fun <T>loading() = DataState<T>(isLoading = true)
     }
 }
-
-

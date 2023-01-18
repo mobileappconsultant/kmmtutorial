@@ -1,16 +1,19 @@
 package com.example.kmmfoodtofork.presentation.recipe_list
 
+import com.codingwithmitch.food2forkkmm.presentation.recipe_list.FoodCategory
+
 sealed class RecipeListEvents {
 
-    object LoadRecipes : RecipeListEvents()
+    object LoadRecipes: RecipeListEvents()
 
-    object NextPage : RecipeListEvents()
+    object NewSearch: RecipeListEvents()
 
-    object NewSearchEvent : RecipeListEvents()
+    object NextPage: RecipeListEvents()
 
-    data class OnUpdateQuery(val updatedQuery: String) : RecipeListEvents()
+    data class OnUpdateQuery(val query: String): RecipeListEvents()
 
-    data class OnCategorySelect(val selectedCategory: FoodCategory) : RecipeListEvents()
+    data class OnSelectCategory(val category: FoodCategory): RecipeListEvents()
 
-    object OnRemoveHeadFromQueue : RecipeListEvents()
+    object OnRemoveHeadMessageFromQueue: RecipeListEvents()
+
 }

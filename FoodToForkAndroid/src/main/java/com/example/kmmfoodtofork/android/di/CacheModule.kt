@@ -6,11 +6,10 @@ import com.example.kmmfoodtofork.datasource.cache.RecipeCache
 import com.example.kmmfoodtofork.datasource.cache.RecipeCacheImpl
 import com.example.kmmfoodtofork.datasource.cache.RecipeDatabase
 import com.example.kmmfoodtofork.datasource.cache.RecipeDatabaseFactory
-import com.example.kmmfoodtofork.domain.model.util.DatetimeUtil
+import com.example.kmmfoodtofork.domain.util.DatetimeUtil
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 

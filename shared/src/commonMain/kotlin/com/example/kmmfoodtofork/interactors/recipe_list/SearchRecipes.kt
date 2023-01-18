@@ -1,14 +1,16 @@
 package com.example.kmmfoodtofork.interactors.recipe_list
 
-import com.example.kmmfoodtofork.datasourc.network.RecipeService
+
 import com.example.kmmfoodtofork.datasource.cache.RecipeCache
+import com.example.kmmfoodtofork.datasource.network.RecipeService
 import com.example.kmmfoodtofork.domain.model.GenericMessageInfo
 import com.example.kmmfoodtofork.domain.model.Recipe
-import com.example.kmmfoodtofork.domain.model.UiComponentType
-import com.example.kmmfoodtofork.domain.model.util.DataState
-import kotlinx.coroutines.delay
+import com.example.kmmfoodtofork.domain.model.UIComponentType
+import com.example.kmmfoodtofork.domain.util.DataState
 import kotlinx.coroutines.flow.Flow
+
 import kotlinx.coroutines.flow.flow
+
 
 class SearchRecipe(
     private val recipeService: RecipeService,
@@ -30,7 +32,7 @@ class SearchRecipe(
                 DataState.error(
                     GenericMessageInfo.Builder()
                         .id("SearchRecipes.Error")
-                        .uiComponentType(UiComponentType.Dialog)
+                        .uiComponentType(UIComponentType.Dialog)
                         .title("Error")
                         .description(ex.message ?: "Unknown Error")
                 )
@@ -38,3 +40,4 @@ class SearchRecipe(
         }
     }
 }
+
