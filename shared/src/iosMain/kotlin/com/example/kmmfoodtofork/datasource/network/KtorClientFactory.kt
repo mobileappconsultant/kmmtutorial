@@ -12,7 +12,7 @@ import kotlinx.serialization.json.Json
 
 
 actual class KtorClientFactory {
-    actual fun build(): HttpClient {
+    actual fun build(): HttpClient =
         HttpClient(Darwin) {
             install(Logging) {
                 logger = Logger.DEFAULT
@@ -22,9 +22,9 @@ actual class KtorClientFactory {
                 json(Json {
                     prettyPrint = true
                     isLenient = true
-                    ignoreUnknownKeys=true
+                    ignoreUnknownKeys = true
                 })
             }
         }
-    }
 }
+
