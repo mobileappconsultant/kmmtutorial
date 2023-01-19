@@ -2,6 +2,7 @@ plugins {
     kotlin(KotlinPlugins.multiplatform)
     id(Plugins.androidLibrary)
     id(Plugins.sqlDelight)
+    kotlin("native.cocoapods")
     kotlin(KotlinPlugins.serialization) version Kotlin.version
 }
 
@@ -12,8 +13,14 @@ kotlin {
         iosX64(),
         iosArm64(),
         iosSimulatorArm64()
-    ).forEach {
-        it.binaries.framework {
+    )
+    cocoapods {
+        summary = "Some description for the Shared Module"
+        homepage = "Link to the Shared Module homepage"
+        version = "1.0"
+        ios.deploymentTarget = "14.1"
+        podfile = project.file("../FoodToForkApple/Podfile")
+        framework {
             baseName = "shared"
         }
     }
