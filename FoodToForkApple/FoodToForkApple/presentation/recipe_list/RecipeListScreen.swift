@@ -16,14 +16,14 @@ struct RecipeListScreen: View {
     private let networkModule : NetworkModule
     private let cacheModule : CacheModule
     private let searchRecipesModule : SearchModule
-    @ObservedObject var viewModel : RecipelistViewModel
+    @ObservedObject var viewModel : RecipeListViewModel
     
     init(networkModule: NetworkModule, cacheModule: CacheModule) {
         self.networkModule = networkModule
         self.cacheModule = cacheModule
         self.searchRecipesModule = SearchModule(networkModule:self.networkModule,
                                                 cacheModule:self.cacheModule)
-        self.viewModel = RecipelistViewModel(
+        self.viewModel = RecipeListViewModel(
             searchRecipes: self.searchRecipesModule.searchRecipes,
             foodCategoryUtil: FoodCategoryUtil())
     }
