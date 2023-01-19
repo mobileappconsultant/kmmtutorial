@@ -98,17 +98,17 @@ class RecipeListViewModel @Inject constructor(
     /*    this is shit.. at the time it's believed that KMM doesn't allow extension
         functions to be used in swift hence this util class*/
     private fun appendToMessageQueue(messageInfo: GenericMessageInfo.Builder) {
-        if (!state.value?.queue?.let {
+        if (!state.value.queue.let {
                 GenericMessageInfoQueueUtil()
                     .doesMessageAlreadyExistInQueue(
                         queue = it,
                         messageInfo = messageInfo.build()
                     )
-            }!!
+            }
         ) {
-            val queue = state.value?.queue
-            queue?.add(messageInfo.build())
-            state.value = queue?.let { state.value?.copy(queue = it) }!!
+            val queue = state.value.queue
+            queue.add(messageInfo.build())
+            state.value = queue.let { state.value.copy(queue = it) }
         }
     }
 

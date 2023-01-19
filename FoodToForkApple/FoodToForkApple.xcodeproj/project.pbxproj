@@ -11,7 +11,7 @@
 		058557D9273AAEEB004C7B11 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */; };
 		2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2152FB032600AC8F00CF470E /* iOSApp.swift */; };
 		7555FF83242A565900829871 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555FF82242A565900829871 /* ContentView.swift */; };
-		8AF7E28C86D5A88DA320E308 /* Pods_FoodToForkApple.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C64524BBACA72562E890EF6A /* Pods_FoodToForkApple.framework */; };
+		8AF7E28C86D5A88DA320E308 /* Pods_FoodToForkApple.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C64524BBACA72562E890EF6A /* Pods_FoodToForkApple.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -82,7 +82,6 @@
 				2356A71988BA37E18AD96CE5 /* Pods-FoodToForkApple.debug.xcconfig */,
 				B0643AE928A5B31FEC811072 /* Pods-FoodToForkApple.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};

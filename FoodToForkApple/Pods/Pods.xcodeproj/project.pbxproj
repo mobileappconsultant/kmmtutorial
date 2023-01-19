@@ -26,7 +26,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		5A4EA6D2CB5F983D1A95E5A39FA5CAE2 /* PBXContainerItemProxy */ = {
+		20F25AE4AA51B2933F96EE54D79FE480 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
@@ -37,19 +37,18 @@
 
 /* Begin PBXFileReference section */
 		0D58C3D963493B413BCBD2E8DF85CB78 /* Pods-FoodToForkApple.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-FoodToForkApple.debug.xcconfig"; sourceTree = "<group>"; };
+		0DFFF59B8422AB828C1EC97F6579C1D2 /* shared.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = shared.release.xcconfig; sourceTree = "<group>"; };
 		36B0540A8F19F86783BAD9BAF1AF9D90 /* Pods-FoodToForkApple.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-FoodToForkApple.modulemap"; sourceTree = "<group>"; };
 		4B50CC3DBEDB6B1CBF92D586DB9FA89C /* Pods-FoodToForkApple.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-FoodToForkApple.release.xcconfig"; sourceTree = "<group>"; };
-		4C0277A837642E4390F944D5AABAAB4C /* shared.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = shared.release.xcconfig; sourceTree = "<group>"; };
 		565770FD626F2C0EBBF2AFB909BB9DBB /* Pods-FoodToForkApple-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-FoodToForkApple-dummy.m"; sourceTree = "<group>"; };
 		6075CA41BC2FCE54D1136FF884A3A385 /* Pods-FoodToForkApple-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-FoodToForkApple-acknowledgements.plist"; sourceTree = "<group>"; };
-		68AF4D5FD74868DF9C5DB617A61B4085 /* shared.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = shared.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		6A305222907B8D5383524DE9CEB94FEE /* shared.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = shared.debug.xcconfig; sourceTree = "<group>"; };
 		73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		79FAD75A1C64806C83BDEE27D0B11C5C /* Pods-FoodToForkApple-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-FoodToForkApple-Info.plist"; sourceTree = "<group>"; };
 		808465496A9A9581FD5F7A8F71B70D62 /* Pods-FoodToForkApple */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-FoodToForkApple"; path = Pods_FoodToForkApple.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		B7E20539F5B8C4B73F9EADEA8F1DBEF7 /* shared.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = shared.debug.xcconfig; sourceTree = "<group>"; };
+		B67066762506D20D712D9723208050FF /* shared.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = shared.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		CB90C27B54C299ADCE19D0432299080A /* Pods-FoodToForkApple-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-FoodToForkApple-acknowledgements.markdown"; sourceTree = "<group>"; };
-		DA532D1FC17B664CFF68C0918F3D6320 /* shared.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = shared.framework; path = build/cocoapods/framework/shared.framework; sourceTree = "<group>"; };
 		E909A564F93E44E7F949B648D07547BF /* Pods-FoodToForkApple-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-FoodToForkApple-umbrella.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -81,25 +80,6 @@
 			path = "Target Support Files/Pods-FoodToForkApple";
 			sourceTree = "<group>";
 		};
-		1724D92F75F1EFDEE84D1FBD0B94E1B0 /* shared */ = {
-			isa = PBXGroup;
-			children = (
-				E024498586826517B4D3E603C307E8C9 /* Frameworks */,
-				CF913A980F82F153DD87933C558FF22A /* Pod */,
-				C6B84E8F44718EFA56AE4F748F441DEE /* Support Files */,
-			);
-			name = shared;
-			path = ../../shared;
-			sourceTree = "<group>";
-		};
-		313FE5FE915A4A924C55AAC02A910D61 /* Development Pods */ = {
-			isa = PBXGroup;
-			children = (
-				1724D92F75F1EFDEE84D1FBD0B94E1B0 /* shared */,
-			);
-			name = "Development Pods";
-			sourceTree = "<group>";
-		};
 		37C979FD92D25DA6100FB87C874399F6 /* Targets Support Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -116,21 +96,47 @@
 			name = iOS;
 			sourceTree = "<group>";
 		};
-		C6B84E8F44718EFA56AE4F748F441DEE /* Support Files */ = {
+		5DAC686E9D6639FDD2692D2C46CC47D3 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				B7E20539F5B8C4B73F9EADEA8F1DBEF7 /* shared.debug.xcconfig */,
-				4C0277A837642E4390F944D5AABAAB4C /* shared.release.xcconfig */,
+				6A305222907B8D5383524DE9CEB94FEE /* shared.debug.xcconfig */,
+				0DFFF59B8422AB828C1EC97F6579C1D2 /* shared.release.xcconfig */,
 			);
 			name = "Support Files";
 			path = "../FoodToForkApple/Pods/Target Support Files/shared";
+			sourceTree = "<group>";
+		};
+		82D169788C2E98D4D9440AB5B3D03E45 /* Pod */ = {
+			isa = PBXGroup;
+			children = (
+				B67066762506D20D712D9723208050FF /* shared.podspec */,
+			);
+			name = Pod;
+			sourceTree = "<group>";
+		};
+		8D38CEF2F97186EB452F3A4E1B1B37EF /* Development Pods */ = {
+			isa = PBXGroup;
+			children = (
+				9FEBC9DAA6ABB292D43B6A855A5454FB /* shared */,
+			);
+			name = "Development Pods";
+			sourceTree = "<group>";
+		};
+		9FEBC9DAA6ABB292D43B6A855A5454FB /* shared */ = {
+			isa = PBXGroup;
+			children = (
+				82D169788C2E98D4D9440AB5B3D03E45 /* Pod */,
+				5DAC686E9D6639FDD2692D2C46CC47D3 /* Support Files */,
+			);
+			name = shared;
+			path = ../../shared;
 			sourceTree = "<group>";
 		};
 		CF1408CF629C7361332E53B88F7BD30C = {
 			isa = PBXGroup;
 			children = (
 				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
-				313FE5FE915A4A924C55AAC02A910D61 /* Development Pods */,
+				8D38CEF2F97186EB452F3A4E1B1B37EF /* Development Pods */,
 				D210D550F4EA176C3123ED886F8F87F5 /* Frameworks */,
 				CF55DE993C032C3C8D3DAB61ABA70E96 /* Products */,
 				37C979FD92D25DA6100FB87C874399F6 /* Targets Support Files */,
@@ -145,26 +151,10 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		CF913A980F82F153DD87933C558FF22A /* Pod */ = {
-			isa = PBXGroup;
-			children = (
-				68AF4D5FD74868DF9C5DB617A61B4085 /* shared.podspec */,
-			);
-			name = Pod;
-			sourceTree = "<group>";
-		};
 		D210D550F4EA176C3123ED886F8F87F5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				578452D2E740E91742655AC8F1636D1F /* iOS */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		E024498586826517B4D3E603C307E8C9 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				DA532D1FC17B664CFF68C0918F3D6320 /* shared.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -195,7 +185,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				3C954A64305FF8E9BB328BCACEA951F4 /* PBXTargetDependency */,
+				7956C74E5BAB4BD50EC0830DBA2F332C /* PBXTargetDependency */,
 			);
 			name = "Pods-FoodToForkApple";
 			productName = Pods_FoodToForkApple;
@@ -208,8 +198,8 @@
 		BFDFE7DC352907FC980B868725387E98 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1240;
-				LastUpgradeCheck = 1240;
+				LastSwiftUpdateCheck = 1300;
+				LastUpgradeCheck = 1300;
 			};
 			buildConfigurationList = 4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 9.3";
@@ -265,11 +255,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		3C954A64305FF8E9BB328BCACEA951F4 /* PBXTargetDependency */ = {
+		7956C74E5BAB4BD50EC0830DBA2F332C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = shared;
 			target = 8777C9F6889E59EFFD631D80AEE9048B /* shared */;
-			targetProxy = 5A4EA6D2CB5F983D1A95E5A39FA5CAE2 /* PBXContainerItemProxy */;
+			targetProxy = 20F25AE4AA51B2933F96EE54D79FE480 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -441,7 +431,7 @@
 		};
 		A7B4967B71249851CABD6EC29251E481 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B7E20539F5B8C4B73F9EADEA8F1DBEF7 /* shared.debug.xcconfig */;
+			baseConfigurationReference = 6A305222907B8D5383524DE9CEB94FEE /* shared.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -458,7 +448,7 @@
 		};
 		A96D4527F178BD8C0DEB7EE72B9AAE09 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4C0277A837642E4390F944D5AABAAB4C /* shared.release.xcconfig */;
+			baseConfigurationReference = 0DFFF59B8422AB828C1EC97F6579C1D2 /* shared.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

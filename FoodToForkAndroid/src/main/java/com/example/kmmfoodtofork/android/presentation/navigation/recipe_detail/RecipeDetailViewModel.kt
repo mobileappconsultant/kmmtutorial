@@ -91,7 +91,7 @@ class RecipeDetailViewModel @Inject constructor(
             queue?.remove() // can throw exception if empty
             state.value =
                 state.value?.copy(queue = Queue(mutableListOf())) // force recompose
-            state.value = state?.value?.copy(queue = queue!!)
+            state.value = state.value?.copy(queue = queue!!)
         } catch (e: Exception) {
             // nothing to remove, queue is empty
         }
