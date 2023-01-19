@@ -6,7 +6,9 @@ import com.example.kmmfoodtofork.datasource.network.RecipeService
 import com.example.kmmfoodtofork.domain.model.GenericMessageInfo
 import com.example.kmmfoodtofork.domain.model.Recipe
 import com.example.kmmfoodtofork.domain.model.UIComponentType
+import com.example.kmmfoodtofork.domain.util.CommonFlow
 import com.example.kmmfoodtofork.domain.util.DataState
+import com.example.kmmfoodtofork.domain.util.asCommonFlow
 import kotlinx.coroutines.flow.Flow
 
 import kotlinx.coroutines.flow.flow
@@ -16,7 +18,7 @@ class SearchRecipe(
     private val recipeService: RecipeService,
     val recipeCache: RecipeCache
 ) {
-    fun execute(page: Int, query: String): Flow<DataState<List<Recipe>>> = flow {
+    fun execute(page: Int, query: String): CommonFlow<DataState<List<Recipe>>> = flow {
         //emit
         emit(DataState.loading())
         try {
@@ -38,6 +40,6 @@ class SearchRecipe(
                 )
             )
         }
-    }
+    }.asCommonFlow()
 }
 

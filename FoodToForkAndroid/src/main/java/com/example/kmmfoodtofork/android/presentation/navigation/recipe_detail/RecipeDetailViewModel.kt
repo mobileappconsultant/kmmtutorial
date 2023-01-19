@@ -53,7 +53,7 @@ class RecipeDetailViewModel @Inject constructor(
     }
 
     private fun loadRecipe(recipeId: Int) {
-        getRecipe.execute(recipeId).onEach { dataState ->
+        getRecipe.execute(recipeId).collectCommon(viewModelScope) { dataState ->
             state.value = state.value?.copy(isLoading = dataState.isLoading)
             println("RecipeDetailVM [Loading] ${dataState.isLoading}")
 
@@ -66,7 +66,7 @@ class RecipeDetailViewModel @Inject constructor(
                 appendToMessageQueue(message)
 
             }
-        }.launchIn(viewModelScope)
+        }
     }
 
     /*    this is shit.. at the time it's believed that KMM doesn't allow extension

@@ -4,7 +4,9 @@ import com.example.kmmfoodtofork.datasource.cache.RecipeCache
 import com.example.kmmfoodtofork.domain.model.GenericMessageInfo
 import com.example.kmmfoodtofork.domain.model.Recipe
 import com.example.kmmfoodtofork.domain.model.UIComponentType
+import com.example.kmmfoodtofork.domain.util.CommonFlow
 import com.example.kmmfoodtofork.domain.util.DataState
+import com.example.kmmfoodtofork.domain.util.asCommonFlow
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -12,32 +14,33 @@ import kotlinx.coroutines.flow.flow
 /**
  * Retrieve a recipe from the cache given it's unique id.
  */
-class GetRecipe (
+class GetRecipe(
     private val recipeCache: RecipeCache,
-){
+) {
     fun execute(
         recipeId: Int,
-    ): Flow<DataState<Recipe>> = flow {
+    ): CommonFlow<DataState<Recipe>> = flow {
         try {
             emit(DataState.loading())
 
             // for testing
             delay(1000)
 
-            val recipe =  recipeCache.get(recipeId)
+            val recipe = recipeCache.get(recipeId)
 
             emit(DataState.data(message = null, data = recipe))
 
-        }catch (e: Exception){
+        } catch (e: Exception) {
             emit(
                 DataState.error<Recipe>(
-                message = GenericMessageInfo.Builder()
-                    .id("GetRecipe.Error")
-                    .title("Error")
-                    .uiComponentType(UIComponentType.Dialog)
-                    .description(e.message?: "Unknown Error")
-            ))
+                    message = GenericMessageInfo.Builder()
+                        .id("GetRecipe.Error")
+                        .title("Error")
+                        .uiComponentType(UIComponentType.Dialog)
+                        .description(e.message ?: "Unknown Error")
+                )
+            )
         }
-    }
+    }.asCommonFlow()
 
 }

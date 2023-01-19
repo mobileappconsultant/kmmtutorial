@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.codingwithmitch.food2forkkmm.presentation.recipe_list.FoodCategory
 import com.example.kmmfoodtofork.presentation.recipe_list.RecipeListEvents
-import com.codingwithmitch.food2forkkmm.presentation.recipe_list.RecipeListState
+import com.example.kmmfoodtofork.presentation.recipe_list.RecipeListState
 import com.example.kmmfoodtofork.domain.model.GenericMessageInfo
 import com.example.kmmfoodtofork.domain.model.Recipe
 import com.example.kmmfoodtofork.domain.model.UIComponentType
@@ -124,7 +124,7 @@ class RecipeListViewModel @Inject constructor(
 
     private fun loadRecipes() {
         searchRecipe.execute(page = state.value.page, query = state.value.query)
-            .onEach { dataState ->
+            .collectCommon(viewModelScope) { dataState ->
                 println("RecipeListVM [Loading] ${dataState.isLoading}")
                 state.value = state.value.copy(isLoading = dataState.isLoading)
                 dataState.data?.let { recipes ->
@@ -136,7 +136,7 @@ class RecipeListViewModel @Inject constructor(
                     appendToMessageQueue(message)
                 }
 
-            }.launchIn(viewModelScope)
+            }
     }
 
     private fun appendRecipes(recipes: List<Recipe>) {
