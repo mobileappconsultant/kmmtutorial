@@ -5,7 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.codingwithmitch.food2forkkmm.presentation.recipe_list.FoodCategory
+import com.example.kmmfoodtofork.presentation.recipe_list.FoodCategory
 import com.example.kmmfoodtofork.presentation.recipe_list.RecipeListEvents
 import com.example.kmmfoodtofork.presentation.recipe_list.RecipeListState
 import com.example.kmmfoodtofork.domain.model.GenericMessageInfo
@@ -17,8 +17,6 @@ import com.example.kmmfoodtofork.interactors.recipe_list.SearchRecipe
 
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
 
 @HiltViewModel
 class RecipeListViewModel @Inject constructor(

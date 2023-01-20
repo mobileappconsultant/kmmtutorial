@@ -1,4 +1,4 @@
-package com.codingwithmitch.food2forkkmm.presentation.recipe_list
+package com.example.kmmfoodtofork.presentation.recipe_list
 
 enum class FoodCategory(val value: String){
     ERROR("error"),

@@ -19,7 +19,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import com.codingwithmitch.food2forkkmm.presentation.recipe_list.FoodCategory
+import com.example.kmmfoodtofork.presentation.recipe_list.FoodCategory
 import com.codingwithmitch.food2forkkmm.presentation.recipe_list.FoodCategoryUtil
 
 

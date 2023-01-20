@@ -1,5 +1,7 @@
 package com.codingwithmitch.food2forkkmm.presentation.recipe_list
 
+import com.example.kmmfoodtofork.presentation.recipe_list.FoodCategory
+
 class FoodCategoryUtil {
     fun getAllFoodCategories(): List<FoodCategory> {
         return listOf(

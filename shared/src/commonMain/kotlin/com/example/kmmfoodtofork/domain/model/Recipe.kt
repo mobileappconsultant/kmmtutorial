@@ -1,11 +1,12 @@
 package com.example.kmmfoodtofork.domain.model
 
+import io.ktor.http.ContentType.Text.Html
 import kotlinx.datetime.LocalDateTime
 
 /**
  * See Recipe example: https://food2fork.ca/
  */
-data class Recipe (
+data class Recipe(
     val id: Int,
     val title: String,
     val publisher: String,
@@ -14,8 +15,7 @@ data class Recipe (
     val sourceUrl: String,
     val ingredients: List<String> = listOf(),
     val dateAdded: LocalDateTime,
-    val dateUpdated: LocalDateTime,
-)
+    val dateUpdated: LocalDateTime)
 
 
 
