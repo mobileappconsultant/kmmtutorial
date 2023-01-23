@@ -8,6 +8,8 @@ data class RecipeDetailState(
     val isLoading: Boolean = false,
     val recipe: Recipe? = null,
     val queue: Queue<GenericMessageInfo> = Queue(mutableListOf()), // messages to be displayed in ui
-)
+){
+    constructor():this(isLoading=false,recipe=null,queue= Queue(mutableListOf()))
+}
 
 
