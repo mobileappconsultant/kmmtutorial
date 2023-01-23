@@ -9,6 +9,9 @@
 import SwiftUI
 import shared
 
+import SwiftUI
+import shared
+
 struct RecipeListScreen: View {
     
     // dependencies
@@ -59,9 +62,6 @@ struct RecipeListScreen: View {
                                                 viewModel.onTriggerEvent(stateEvent: RecipeListEvents.NextPage())
                                             }
                                         })
-                                        .onTapGesture {
-                                          print("tap")
-                                        }
                                 }
                                 NavigationLink(
                                     destination: RecipeDetailScreen(
